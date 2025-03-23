@@ -122,7 +122,6 @@ public class SearchActivity extends AppCompatActivity {
                 runOnUiThread(() -> statusText.setText("Haku epäonnistui, syöttämäsi kaupunki ei ole olemassa!"));
                 return; // kutsutaan getData vaan jos kaupunki on HashMapissa
             }
-            runOnUiThread(() -> statusText.setText("Haku onnistui"));
             getData(this, city, year);
 
         }).start();
