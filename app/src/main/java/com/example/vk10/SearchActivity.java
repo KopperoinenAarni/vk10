@@ -71,6 +71,8 @@ public class SearchActivity extends AppCompatActivity {
         String city = cityEdit.getText().toString().trim();
         String yearText = yearEdit.getText().toString().trim();
         runOnUiThread(() -> statusText.setText(("Haetaan Haku")));
+        System.out.println("Toimiikohan nyt :D :" + CarDataStorage.getInstance().getCity());
+
 
         if (city.isEmpty()) {
             statusText.setText("Haku epäonnistui, et syöttänyt kaupunkia!");
@@ -103,6 +105,8 @@ public class SearchActivity extends AppCompatActivity {
         new Thread(() -> {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode areas = null;
+            System.out.println("Toimiikohan nyt :D :" + CarDataStorage.getInstance().getCity());
+
 
             try {
                 areas = objectMapper.readTree(new URL("https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/mkan/statfin_mkan_pxt_11ic.px"));
@@ -126,6 +130,8 @@ public class SearchActivity extends AppCompatActivity {
             for (int i = 0; i < keys.size(); i++) {
                 cityCodes.put(keys.get(i), values.get(i));
             }
+            System.out.println("Toimiikohan nyt :D :" + CarDataStorage.getInstance().getCity());
+
 
             if (!cityCodes.containsKey(city)) {
                 runOnUiThread(() -> statusText.setText("Haku epäonnistui, syöttämäsi kaupunki ei ole olemassa!"));
@@ -144,13 +150,18 @@ public class SearchActivity extends AppCompatActivity {
                 con.setRequestProperty("Content-Type", "application/json; utf-8");
                 con.setRequestProperty("Accept", "application/json");
                 con.setDoOutput(true);
+                System.out.println("Toimiikohan nyt :D :" + CarDataStorage.getInstance().getCity());
+
 
                 JsonNode jsonInputString = objectMapper.readTree(context.getResources().openRawResource(R.raw.query));
+
 
 
                 // Ensin hakee kaupungit, indeksi 0 ja toinen hakee vuodet, indeksi 3
                 ((ObjectNode) jsonInputString.get("query").get(0).get("selection")).putArray("values").removeAll().add(code);
                 ((ObjectNode) jsonInputString.get("query").get(3).get("selection")).putArray("values").removeAll().add(String.valueOf(year));
+                System.out.println("Toimiikohan nyt :D :" + CarDataStorage.getInstance().getCity());
+
 
                 byte[] input = objectMapper.writeValueAsBytes(jsonInputString);
                 OutputStream os = con.getOutputStream();
@@ -163,7 +174,8 @@ public class SearchActivity extends AppCompatActivity {
                     response.append(line.trim());
                 }
 
-                System.out.println("Jos kaupunki ok, se on:" + CarDataStorage.getInstance().getCity());
+
+                System.out.println("Toimiikohan nyt :D :" + CarDataStorage.getInstance().getCity());
 
                 JsonNode carData = objectMapper.readTree(response.toString());
 
@@ -188,6 +200,8 @@ public class SearchActivity extends AppCompatActivity {
                     storage.addCarData(new CarData(label, amount));
                     totalAmount += amount;
                 }
+                System.out.println("Toimiikohan nyt :D :" + CarDataStorage.getInstance().getCity());
+
 
 
                 runOnUiThread(() -> statusText.setText("Haku onnistui"));
