@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SeachActivity">
+    tools:context="com.example.vk10.SearchActivity">
 
     <EditText
         android:id="@+id/YearEdit"
@@ -69,5 +69,4 @@
         app:layout_constraintEnd_toEndOf="@+id/SearchButton"
         app:layout_constraintStart_toStartOf="@+id/SearchButton"
         app:layout_constraintTop_toBottomOf="@+id/SearchButton" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
