@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
                 areas = objectMapper.readTree(new URL("https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/mkan/statfin_mkan_pxt_11ic.px"));
             } catch (IOException e) {
                 e.printStackTrace();
-                runOnUiThread(() -> statusText.setText("Haku epäonnistu, kaupungin tietojen lataaminen ei onnistunut"));
+                runOnUiThread(() -> statusText.setText("Haku epäonnistui, kaupungin tietojen lataaminen ei onnistunut"));
                 return;
             }
 
@@ -122,7 +122,7 @@ public class SearchActivity extends AppCompatActivity {
                 return; // kutsutaan getData vaan jos kaupunki on HashMapissa
             }
 
-            runOnUiThread(() -> statusText.setText(("Haetaan...")));
+            runOnUiThread(() -> statusText.setText(("Haku onnistui, Haetaan...")));
             getData(this, city, year);
 
         }).start();
