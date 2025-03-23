@@ -70,6 +70,7 @@ public class SearchActivity extends AppCompatActivity {
     public void searchButton(View view) {
         String city = cityEdit.getText().toString().trim();
         String yearText = yearEdit.getText().toString().trim();
+        runOnUiThread(() -> statusText.setText(("Haetaan")));
 
         if (city.isEmpty()) {
             statusText.setText("Haku epäonnistui, et syöttänyt kaupunkia!");
@@ -122,7 +123,6 @@ public class SearchActivity extends AppCompatActivity {
                 return; // kutsutaan getData vaan jos kaupunki on HashMapissa
             }
 
-            runOnUiThread(() -> statusText.setText(("Haku onnistui, Haetaan...")));
             getData(this, city, year);
 
         }).start();
