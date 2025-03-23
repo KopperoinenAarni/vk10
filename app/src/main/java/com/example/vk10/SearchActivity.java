@@ -122,7 +122,7 @@ public class SearchActivity extends AppCompatActivity {
                 return; // kutsutaan getData vaan jos kaupunki on HashMapissa
             }
 
-            runOnUiThread(() -> statusText.setText("Kaupunki löydetty, haetaan tietoja..."));
+            runOnUiThread(() -> statusText.setText(("Haetaan...")));
             getData(this, city, year);
 
         }).start();
