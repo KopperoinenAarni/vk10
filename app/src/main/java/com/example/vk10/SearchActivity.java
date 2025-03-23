@@ -129,6 +129,11 @@ public class SearchActivity extends AppCompatActivity {
             String code = null;
             code = cityCodes.get(city);
 
+            CarDataStorage storage1 = CarDataStorage.getInstance();
+            storage1.clearData();
+            storage1.setCity(city);
+            storage1.setYear(year);
+
 
             try {
                 URL url = new URL("https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/mkan/statfin_mkan_pxt_11ic.px");
