@@ -72,12 +72,12 @@ public class SearchActivity extends AppCompatActivity {
         String yearText = yearEdit.getText().toString().trim();
 
         if (city.isEmpty()) {
-            statusText.setText("Et syöttänyt kaupunkia!");
+            statusText.setText("Haku epäonnistui, et syöttänyt kaupunkia!");
             return;
         }
 
         if (yearText.isEmpty()) {
-            statusText.setText("Et syöttänyt vuotta!");
+            statusText.setText("Haku epäonnistui, et syöttänyt vuotta!");
             return;
         }
 
@@ -85,7 +85,7 @@ public class SearchActivity extends AppCompatActivity {
         try {
             year = Integer.parseInt(yearText);
         } catch (NumberFormatException e) {
-            statusText.setText("Vuoden täytyy olla numero!");
+            statusText.setText("Haku epäonnistui, vuoden täytyy olla numero!");
             return;
         }
 
@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
                 areas = objectMapper.readTree(new URL("https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/mkan/statfin_mkan_pxt_11ic.px"));
             } catch (IOException e) {
                 e.printStackTrace();
-                runOnUiThread(() -> statusText.setText("Kaupungin tietojen lataaminen ei onnistunut"));
+                runOnUiThread(() -> statusText.setText("Haku epäonnistu, kaupungin tietojen lataaminen ei onnistunut"));
                 return;
             }
 
@@ -118,7 +118,7 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             if (!cityCodes.containsKey(city)) {
-                runOnUiThread(() -> statusText.setText("Syöttämäsi kaupunki ei ole olemassa!"));
+                runOnUiThread(() -> statusText.setText("Haku epäonnistui, syöttämäsi kaupunki ei ole olemassa!"));
                 return; // kutsutaan getData vaan jos kaupunki on HashMapissa
             }
 
