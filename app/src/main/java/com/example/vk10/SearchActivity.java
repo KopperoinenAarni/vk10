@@ -217,8 +217,6 @@ public class SearchActivity extends AppCompatActivity {
                 runOnUiThread(() -> statusText.setText("Haku epäonnistui: " + e.getMessage()));
                 e.printStackTrace();
                 return;
-
-
             }
         }).start();
     }
