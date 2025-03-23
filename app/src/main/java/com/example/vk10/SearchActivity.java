@@ -35,7 +35,6 @@ public class SearchActivity extends AppCompatActivity {
     private TextView statusText;
     private EditText cityEdit;
     private EditText yearEdit;
-    private int total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class SearchActivity extends AppCompatActivity {
         statusText = findViewById(R.id.StatusText);
         cityEdit = findViewById(R.id.CityNameEdit);
         yearEdit = findViewById(R.id.YearEdit);
-        total = 0;
+        int total = 0;
     }
 
 
@@ -70,7 +69,7 @@ public class SearchActivity extends AppCompatActivity {
     public void searchButton(View view) {
         String city = cityEdit.getText().toString().trim();
         String yearText = yearEdit.getText().toString().trim();
-        runOnUiThread(() -> statusText.setText(("Haetaan")));
+        runOnUiThread(() -> statusText.setText(("Haetaan Haku")));
 
         if (city.isEmpty()) {
             statusText.setText("Haku epäonnistui, et syöttänyt kaupunkia!");
@@ -89,42 +88,8 @@ public class SearchActivity extends AppCompatActivity {
             statusText.setText("Haku epäonnistui, vuoden täytyy olla numero!");
             return;
         }
+        getData(this, city, year);
 
-        new Thread(() -> {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode areas = null;
-
-            try {
-                areas = objectMapper.readTree(new URL("https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/mkan/statfin_mkan_pxt_11ic.px"));
-            } catch (IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> statusText.setText("Haku epäonnistui, kaupungin tietojen lataaminen ei onnistunut"));
-                return;
-            }
-
-            ArrayList<String> keys = new ArrayList<>();
-            ArrayList<String> values = new ArrayList<>();
-
-            for (JsonNode node : areas.get("variables").get(0).get("values")) {
-                values.add(node.asText());
-            }
-            for (JsonNode node : areas.get("variables").get(0).get("valueTexts")) {
-                keys.add(node.asText());
-            }
-
-            HashMap<String, String> cityCodes = new HashMap<>();
-
-            for (int i = 0; i < keys.size(); i++) {
-                cityCodes.put(keys.get(i), values.get(i));
-            }
-
-            if (!cityCodes.containsKey(city)) {
-                runOnUiThread(() -> statusText.setText("Haku epäonnistui, syöttämäsi kaupunki ei ole olemassa!"));
-                return; // kutsutaan getData vaan jos kaupunki on HashMapissa
-            }
-            getData(this, city, year);
-
-        }).start();
     }
 
     public void getData(Context context, String city, int year) {
@@ -153,6 +118,11 @@ public class SearchActivity extends AppCompatActivity {
 
             for (int i = 0; i < keys.size(); i++) {
                 cityCodes.put(keys.get(i), values.get(i));
+            }
+
+            if (!cityCodes.containsKey(city)) {
+                runOnUiThread(() -> statusText.setText("Haku epäonnistui, syöttämäsi kaupunki ei ole olemassa!"));
+                return;
             }
 
             String code = null;
