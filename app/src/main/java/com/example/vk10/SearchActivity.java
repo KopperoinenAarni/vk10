@@ -89,6 +89,12 @@ public class SearchActivity extends AppCompatActivity {
             statusText.setText("Haku epäonnistui, vuoden täytyy olla numero!");
             return;
         }
+
+        CarDataStorage storage1 = CarDataStorage.getInstance();
+        storage1.clearData();
+        storage1.setCity(city);
+        storage1.setYear(year);
+
         getData(this, city, year);
 
     }
@@ -123,16 +129,12 @@ public class SearchActivity extends AppCompatActivity {
 
             if (!cityCodes.containsKey(city)) {
                 runOnUiThread(() -> statusText.setText("Haku epäonnistui, syöttämäsi kaupunki ei ole olemassa!"));
+                System.out.println(CarDataStorage.getInstance().getCity());
                 return;
             }
 
             String code = null;
             code = cityCodes.get(city);
-
-            CarDataStorage storage1 = CarDataStorage.getInstance();
-            storage1.clearData();
-            storage1.setCity(city);
-            storage1.setYear(year);
 
 
             try {
@@ -160,6 +162,8 @@ public class SearchActivity extends AppCompatActivity {
                 while ((line = br.readLine()) != null) {
                     response.append(line.trim());
                 }
+
+                System.out.println("Jos kaupunki ok, se on:" + CarDataStorage.getInstance().getCity());
 
                 JsonNode carData = objectMapper.readTree(response.toString());
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class CarDataStorage {
     private static CarDataStorage instance;
-    private String city;
-    private int year;
+    private volatile String city;
+    private volatile int year;
     private static ArrayList<CarData> carData = new ArrayList<>();
 
     private CarDataStorage() { }
