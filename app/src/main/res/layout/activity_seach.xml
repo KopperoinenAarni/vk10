@@ -10,7 +10,7 @@
     <EditText
         android:id="@+id/YearEdit"
         android:layout_width="376dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginTop="80dp"
         android:hint="2011-2024"
         app:layout_constraintEnd_toEndOf="@+id/CityNameEdit"
@@ -20,9 +20,10 @@
     <EditText
         android:id="@+id/CityNameEdit"
         android:layout_width="376dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginTop="60dp"
         android:hint="Kaupungin nimi"
+        android:textColorHint="#546E7A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -69,4 +70,5 @@
         app:layout_constraintEnd_toEndOf="@+id/SearchButton"
         app:layout_constraintStart_toStartOf="@+id/SearchButton"
         app:layout_constraintTop_toBottomOf="@+id/SearchButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

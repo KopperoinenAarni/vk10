@@ -36,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText cityEdit;
     private EditText yearEdit;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
